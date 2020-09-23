@@ -74,7 +74,7 @@ class server_pull_data(threading.Thread):
 
 import time
 if __name__ == '__main__':
-    path_file = r'/home/dima/PycharmProjects/fase_idTest/app_faceId/data/classificators/0/cvm_model.pk'
+    path_file = r'/home/dima/PycharmProjects/fase_idTest/app_server/data/classificators/0/cvm_model.pk'
     ipUser = '127.0.0.1'
 
     testServer = server_pull_data('127.0.0.1', 9000)

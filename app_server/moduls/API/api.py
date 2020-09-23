@@ -2,8 +2,8 @@
 from flask_restful import Api, Resource, reqparse
 from flask import request
 
-from app_faceId import app
-from app_faceId.moduls.API import functional
+from app_server import app
+from app_server.moduls.API import functional
 
 import os
 

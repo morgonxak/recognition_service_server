@@ -1,5 +1,5 @@
 
-from app_faceId import app
+from app_server import app
 
 if __name__ == "__main__":
 

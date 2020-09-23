@@ -204,7 +204,7 @@ def main(path_BD, path_save_clf, pref='v2', dir_photo = 'photo_RGB'):
     # save_model(clf_svm, os.path.join(path_save_clf, "svm_model_"+pref+'.pk'))
     # save_model(clf_knn, os.path.join(path_save_clf, "knn_model_"+pref+'.pk'))
 
-    save_BD_signs(r'/home/dima/PycharmProjects/fase_idTest/app_faceId/models/bd' + pref + '.pl')
+    save_BD_signs(r'/home/dima/PycharmProjects/fase_idTest/app_server/models/bd' + pref + '.pl')
 
 
 

@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='/static')
 
 #Добовляем ApI
 
-from app_faceId.moduls.API.api import API_face_id
+from app_server.moduls.API.api import API_face_id
 
 api = Api(app)
 api.add_resource(API_face_id, "/api", "/api/<command>")
@@ -26,7 +26,7 @@ app.config['password_parsec'] = '123456'
 # app.config['IP_Server'] = '192.168.1.69'
 app.config['IP_Server'] = '192.168.1.104'
 app.config['PORT_server'] = 2561
-app.config['path_dir_temp'] = r'/home/dima/PycharmProjects/fase_idTest/app_faceId/data/temp'
+app.config['path_dir_temp'] = r'/home/dima/PycharmProjects/fase_idTest/app_server/data/temp'
 
 #settings for data base
 app.config['IP_DB'] = '127.0.0.1'
@@ -43,14 +43,14 @@ app.config['turnstiles']['2'] = {'territoryId': 'c94830ab-2c17-4230-9561-4717cd9
 app.config['time_between_updates_classification'] = datetime.timedelta(minutes=1, seconds=30)  #Время между созданием нового классификатора
 app.config['time_last_updates_classification'] = datetime.datetime.now()  #Время последнего обновления классификатора
 
-# from app_faceId.moduls.init_componects import init_components
+# from app_server.moduls.init_componects import init_components
 
-from app_faceId.moduls import init_componects
+from app_server.moduls import init_componects
 
-from app_faceId.moduls.processing_faceId import processing_faceid
+from app_server.moduls.processing_faceId import processing_faceid
 
 
-app.config['path_dir_calassificator'] = r'/home/dima/PycharmProjects/fase_idTest/app_faceId/data'
+app.config['path_dir_calassificator'] = r'/home/dima/PycharmProjects/fase_idTest/app_server/data'
 
 
 #Инициализируюм компоненты
@@ -71,7 +71,7 @@ for count in range(5):
     app.config['processing_faceid_threading'].append(threading)
     threading.start()
 
-from app_faceId import routes
+from app_server import routes
 
 
 

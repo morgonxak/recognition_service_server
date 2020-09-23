@@ -1,5 +1,5 @@
 
-from app_faceId import app
+from app_server import app
 from flask import request, render_template, make_response
 
 from PIL import Image
@@ -11,7 +11,7 @@ import datetime
 import os
 from werkzeug.utils import secure_filename
 import uuid
-from app_faceId.moduls.trening_models_cvm_knn import class_training
+from app_server.moduls.trening_models_cvm_knn import class_training
 
 import json
 

@@ -15,7 +15,7 @@ import psycopg2
 import numpy as np
 from face_recognition.face_recognition_cli import image_files_in_folder
 import threading
-from app_faceId import app
+from app_server import app
 import datetime
 
 

@@ -1,4 +1,4 @@
-from app_faceId import app
+from app_server import app
 import os
 import socket
 import zipfile
@@ -20,5 +20,5 @@ def create_zip_file(pathDir:str, name:str):
     return pathSave_zip_file
 
 if __name__ == '__main__':
-    create_zip_file('/home/dima/PycharmProjects/fase_idTest/app_faceId/data/classificators/0', '0')
+    create_zip_file('/home/dima/PycharmProjects/fase_idTest/app_server/data/classificators/0', '0')
 

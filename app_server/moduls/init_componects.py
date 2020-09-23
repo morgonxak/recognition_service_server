@@ -7,11 +7,11 @@
 import os
 import cv2
 
-from app_faceId.moduls.BD import BD
-from app_faceId import app
-from app_faceId.moduls.Parsec_API import prosecApi
-from app_faceId.moduls.API.pull_data_client import server_pull_data
-from app_faceId.moduls.trening_models_cvm_knn import class_training
+from app_server.moduls.BD import BD
+from app_server import app
+from app_server.moduls.Parsec_API import prosecApi
+from app_server.moduls.API.pull_data_client import server_pull_data
+from app_server.moduls.trening_models_cvm_knn import class_training
 
 import pickle
 
