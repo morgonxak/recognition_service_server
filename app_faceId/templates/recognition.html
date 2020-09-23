@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    margin:0;
+    padding: 0;
+    background-color: #333;
+    height: 100vh;
+    overflow: hidden;
+  }
+  video {
+    width: 100%;
+  }
+  .shadow {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+  }
+  .success {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    font: 24px/36px 'Arial';
+    text-align: center;
+  }
+  .success__name {
+    margin-bottom: 40px;
+  }
+  .success__name span {
+    display: block;
+      margin-top: 20px;
+    font-size: 32px;
+  }
+  .success__name span i{
+    font-size: 24px;
+      color:#666;
+      font-style: normal;
+  }
+</style>
+<body>
+  <div style="position:relative; margin: 0 auto" >
+<!--    <div class="text_bl" style="display:none; position: absolute; border:3px solid green "></div>-->
+    <div class="shadow shadow-success">
+      <div class="success">
+        <div class="success__name">
+            <div>Добро пожаловать!</div>
+            <span>Шумелев Дмитрий Игоревич</span>
+        </div>
+<!--        <div class="success__icon"><img src="https://png.pngtree.com/svg/20170401/nine_rich_wallet_success_icon_112949.png" width="240px"alt=""></div>-->
+        <div class="success__icon"><img src="{{ url_for('static', filename='nine_rich_wallet_success_icon_112949.png') }}" width="240px"alt=""></div>
+      </div>
+    </div>
+    <div class="shadow shadow-failed">
+      <div class="success">
+        <div class="success__name">Пользователь не найден!</div>
+<!--        <div class="success__icon"><img src="https://png.pngtree.com/svg/20170406/icon_failed__1325447.png" width="240px"alt=""></div>-->
+        <div class="success__icon"><img src="{{ url_for('static', filename='icon_failed__1325447.png') }}" width="240px"alt=""></div>
+      </div>
+    </div>
+    <video autoplay playsinline class="handsome"></video>
+  </div>
+
+  <canvas id="paint" style="display: none;"></canvas>
+
+  <div class="strip"></div>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+
+</script>
+
+  <script>
+      const video = document.querySelector('.handsome');
+      const canvas = document.querySelector('#paint');
+      const ctx = canvas.getContext('2d');
+
+async function go() {
+
+  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  video.srcObject = stream;
+}
+
+function pullServer(data) {
+//Отправка на сервер
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://{{ URL }}/pull/{{ id_devices }}');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.addEventListener('readystatechange', function() {
+                        //Проверим состояние запроса, нас интересует случай когда он завершен ( DONE )
+                        if (xhr.readyState === 4) {
+                            //Дальше проверим какой код ответа нам выдал сервер
+                            if (xhr.status === 200) {
+                                //Если попали сюда, значит можно выполнить функцию, которую вам нужно
+                                //callback();
+
+                            }
+                        }
+                    }, false);
+
+   xhr.send(JSON.stringify(data));
+
+}
+
+function takePhoto() {
+  //Сделать снимок и отправить изобрадения на сервер
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+  const data = canvas.toDataURL('image/png');
+  pullServer(data);
+
+}
+
+// function showWindow_approved()
+
+
+setInterval(takePhoto, 500);
+
+
+go().catch(err => {
+  alert(err.message);
+});
+
+  setInterval(function() {
+
+    $.get('https://{{ URL }}/get_res/{{ id_devices }}', function(data) {
+            console.log(data);
+            if (data != 'None')
+
+                if (data == "Unknown"){
+                    $('.shadow-failed').fadeIn(400);
+                  setTimeout(function () {
+                    $('.shadow-failed').fadeOut(100);
+                  }, 4000);
+                }else{
+                    $('.success__name span').html(data + ("Программист" ? "<br><i>" + "что то еще" + "</i>" : ""));
+                    $('.shadow-success').fadeIn(400);
+                    setTimeout(function () {
+                    $('.shadow-success').fadeOut(100);
+                        }, 4000);
+                }
+        }
+      );
+  },200);
+
+$(document).ready(function(){
+  $('.shadow').on('click', function(){
+    $(this).fadeOut(300);
+  })
+})
+  </script>
+
+</body>
+
+</html>
